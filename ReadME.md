@@ -13,13 +13,17 @@ Our project aims to optimize the spatial allocation of a **US$ 489,850,000 refor
 
 This project uses the Gurobi optimisation solver, however different solvers are able to be used by changed the `pulp.[ENTER SOLVER HERE]` in the code when the models run.
 
+## 📄 Final Report
+
+The full written report is available at [`Report/MPAA_Group_6_Final_Report.pdf`](Report/MPAA_Group_6_Final_Report.pdf).
+
 ### Key Objectives
 
-* **Maximize Biodiversity & Threat Mitigation**
-* **Maximize Carbon Sequestration Potential**
-* **Maximize Deforestation Urgency Intervention**
-* **Minimize Reversal Risk**
-* **Minimize Spatial Dispersion** (using Fortet–Glover linearisation)
+- **Maximize Biodiversity & Threat Mitigation**
+- **Maximize Carbon Sequestration Potential**
+- **Maximize Deforestation Urgency Intervention**
+- **Minimize Reversal Risk**
+- **Minimize Spatial Dispersion** (using Fortet–Glover linearisation)
 
 ---
 
@@ -37,7 +41,7 @@ MPAA-Para-Deterministic-Reforestation-Code/
 │   ├── BR_Municipios_2024.dbf
 │   ├── BR_Municipios_2024.prj
 │   ├── BR_Municipios_2024.shx
-│   
+│
 │
 ├── Figures/                <-- Generated visualizations (radar plots, maps, etc.)
 ├── Outputs/                <-- Generated CSV tables (payoff tables, allocations)
@@ -80,9 +84,9 @@ pip install gurobipy pandas matplotlib seaborn numpy geopandas pulp
 ```
 
 3. Gurobi License:
-The optimization models rely on the Gurobi solver. You must have an active [Gurobi License](https://www.gurobi.com/solutions/licensing/) (an Academic License is sufficient) configured on your machine.
+   The optimization models rely on the Gurobi solver. You must have an active [Gurobi License](https://www.gurobi.com/solutions/licensing/) (an Academic License is sufficient) configured on your machine.
 
-(*note: other solvers can be used for this code, would just need to amend the pulp code for the solver of your choice. You can run the following code to see available solvers on your machine*)
+(_note: other solvers can be used for this code, would just need to amend the pulp code for the solver of your choice. You can run the following code to see available solvers on your machine_)
 
 ```python
 solver_list = pulp.listSolvers(onlyAvailable=True)
@@ -94,18 +98,31 @@ print(solver_list)
 The implementation is divided into sequential Jupyter Notebooks to ensure logical flow and modularity. **Please run the notebooks in the numbered order**:
 
 1. `01_individual_objective_analysis.ipynb`
+
 - Purpose: Solves the MILP independently for each objective to establish theoretical upper and lower bounds (Utopia and Nadir points).
+
 2. `02_nadir_utopia_tolerance_sensitivity.ipynb`
+
 - Purpose: Generates the payoff table and analyzes the trade-offs between competing objectives using the Nadir/Utopia values.
+
 3. `03_main_lexicographix_model.ipynb`
--  Purpose: Implements the core multi-objective optimization using a Hierarchical/Lexicographic approach. It prioritizes objectives sequentially while applying epsilon-constraint logic to preserve secondary goals.
+
+- Purpose: Implements the core multi-objective optimization using a Hierarchical/Lexicographic approach. It prioritizes objectives sequentially while applying epsilon-constraint logic to preserve secondary goals.
+
 4. `04_heuristic_model.ipynb`
+
 - Purpose: A benchmark heuristic approach (greedy algorithm based on cost-effectiveness) to compare against our exact MILP optimal solutions.
+
 5. `05_adverse_investor_sensitivity.ipynb`
+
 - Purpose: Explores an alternative scenario prioritising minimising reversal risk. Adapts model weights to reflect a highly risk-averse funding entity.
+
 6. `06_budget_sensitivity_analysis.ipynb`
+
 - Purpose: Analysis that varies the primary constraint (the US$ 489.85M budget) to evaluate how marginal changes in funding impact the optimal spatial allocation and total hectares restored. The low budget scenario is US\$ 221.37M and the high budget scenario is US\$ 790M, with the medium budget being the same as the original US$ 489.85M budget for comparison.
+
 7. `07_optimal_budget_ndc.ipynb`
+
 - Purpose: To quantify the absolute minimum financial investment required to meet the 5 year policy target of restoring 5.65 million hectares in Pará. A Budget minimisation model in formulated without factoring geographical dispersion penalties - but still implementing physical bound constraints
 
 ### 📊 Results & Outputs
